@@ -72,8 +72,12 @@ export default function TopMenu() {
 
   return (
     <header
-      className="bg-white shadow-sm py-2 d-flex justify-content-between align-items-center border-bottom"
-      style={{ paddingLeft: "40px", paddingRight: "40px" }}
+      className="bg-white d-flex justify-content-between align-items-center px-5 py-2 position-relative z-3"
+      style={{
+        height: "70px",
+        boxShadow: "0 4px 10px rgba(0, 0, 0, 0.05)",
+        borderBottom: "1px solid #e0e0e0",
+      }}
     >
       <div className="d-flex align-items-center">
         <div

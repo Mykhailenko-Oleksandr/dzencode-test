@@ -1,9 +1,6 @@
 export function NavigationMenu() {
   return (
-    <div
-      className="bg-dark text-white p-4"
-      style={{ width: "250px", minHeight: "100vh" }}
-    >
+    <aside className="bg-dark text-white p-4" style={{ width: "250px" }}>
       <h5 className="mb-4">Навігація</h5>
       <ul className="list-unstyled">
         <li className="mb-2">
@@ -17,6 +14,6 @@ export function NavigationMenu() {
           </a>
         </li>
       </ul>
-    </div>
+    </aside>
   );
 }

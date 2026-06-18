@@ -12,7 +12,7 @@ export default function NavigationMenu() {
   return (
     <aside
       className="bg-dark text-white d-flex flex-column align-items-center py-5 border-end"
-      style={{ width: "240px", minHeight: "calc(100vh - 70px)" }}
+      style={{ width: "240px", minHeight: "calc(100vh - 70px)", flexShrink: 0 }}
     >
       <div className="text-center mb-4">
         <div className="text-center mb-4 position-relative">

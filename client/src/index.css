@@ -1,0 +1,59 @@
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+}
+
+button {
+  cursor: pointer;
+  padding: 0;
+  background-color: transparent;
+  border: none;
+}
+
+.order-card {
+  transition: all 0.25s ease-in-out;
+  border: 1px solid #f0f0f0 !important;
+  outline: none;
+}
+
+.order-card:hover,
+.order-card:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+  border-color: #198754 !important;
+}
+
+.delete-btn {
+  transition:
+    color 0.2s,
+    transform 0.2s;
+  outline: none;
+}
+
+.delete-btn:hover,
+.delete-btn:focus-visible {
+  color: #dc3545 !important;
+  transform: scale(1.15);
+}
+
+.active-arrow-indicator {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 26px;
+  background-color: #eff2f5;
+  border-left: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #94a3b8;
+  font-size: 11px;
+  border-top-right-radius: 7px;
+  border-bottom-right-radius: 7px;
+}

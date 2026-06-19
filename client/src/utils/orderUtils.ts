@@ -19,6 +19,10 @@ export const calculateTotal = (products: Product[]) => {
 export const formatDateString = (dateStr: string) => {
   const date = new Date(dateStr);
   const day = String(date.getDate()).padStart(2, "0");
+
+  const monthNumeric = String(date.getMonth() + 1).padStart(2, "0");
+  const year = date.getFullYear();
+
   const months = [
     "Січ",
     "Лют",
@@ -33,8 +37,10 @@ export const formatDateString = (dateStr: string) => {
     "Лист",
     "Груд",
   ];
+
   return {
     short: `${day} / ${months[date.getMonth()]}`,
     full: date.toLocaleDateString("uk-UA"),
+    fullWithSlash: `${day} / ${monthNumeric} / ${year}`,
   };
 };

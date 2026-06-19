@@ -5,7 +5,7 @@ import {
   Navigate,
 } from "react-router-dom";
 import Orders from "./pages/Orders";
-import { Products } from "./pages/Products";
+import Products from "./pages/Products";
 import NavigationMenu from "./components/NavigationMenu";
 import TopMenu from "./components/TopMenu";
 

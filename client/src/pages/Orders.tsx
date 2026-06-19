@@ -63,7 +63,7 @@ export default function Orders() {
 
   return (
     <section className="p-4 container-fluid">
-      <PageTitle title="Приходи" count={orders.length} />
+      <PageTitle title="Приходи" count={orders.length} marginBottom="24px" />
 
       <div className="d-flex flex-nowrap gap-2">
         <OrderList

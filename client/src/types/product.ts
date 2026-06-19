@@ -12,6 +12,10 @@ export interface Product {
   date: string;
 }
 
+export interface ExtendedProduct extends Product {
+  orderTitle: string;
+}
+
 interface Price {
   value: number;
   symbol: string;

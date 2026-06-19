@@ -1,18 +1,19 @@
+import { memo } from "react";
 import { calculateTotal, formatDateString } from "../utils/orderUtils";
 import type { Order } from "../types/order";
 
 interface OrderCardProps {
   order: Order;
   selectedOrder: Order | null;
-  onClick: () => void;
-  onDeleteClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  onSelect: (order: Order) => void;
+  onDelete: (e: React.MouseEvent<HTMLButtonElement>, order: Order) => void;
 }
 
-export default function OrderCard({
+const OrderCard = memo(function OrderCard({
   order,
   selectedOrder,
-  onClick,
-  onDeleteClick,
+  onSelect,
+  onDelete,
 }: OrderCardProps) {
   const totals = calculateTotal(order.products);
   const dateInfo = formatDateString(order.date);
@@ -26,15 +27,12 @@ export default function OrderCard({
       className={`order-card bg-white rounded-3 shadow-sm p-3 d-flex gap-1 align-items-center justify-content-between position-relative ${
         isSelected ? "border-success bg-light" : ""
       }`}
-      style={{
-        cursor: "pointer",
-        minWidth: "500px",
-      }}
-      onClick={onClick}
+      style={{ cursor: "pointer", minWidth: "500px" }}
+      onClick={() => onSelect(order)}
       onKeyDown={(e) => {
         if (e.key === "Enter") {
           e.preventDefault();
-          onClick();
+          onSelect(order);
         }
       }}
     >
@@ -75,7 +73,7 @@ export default function OrderCard({
         </p>
       </div>
 
-      <div className="text-end " style={{ flexShrink: 0, minWidth: "90px" }}>
+      <div className="text-end" style={{ flexShrink: 0, minWidth: "90px" }}>
         <div className="text-muted small" style={{ fontSize: "12px" }}>
           {totals.usd} $
         </div>
@@ -86,9 +84,9 @@ export default function OrderCard({
 
       <button
         type="button"
-        className="btn btn-link text-muted p-2 delete-btn "
+        className="btn btn-link text-muted p-2 delete-btn"
         aria-label={`Видалити прихід ${order.title}`}
-        onClick={onDeleteClick}
+        onClick={(e) => onDelete(e, order)}
       >
         🗑️
       </button>
@@ -100,4 +98,6 @@ export default function OrderCard({
       )}
     </div>
   );
-}
+});
+
+export default OrderCard;

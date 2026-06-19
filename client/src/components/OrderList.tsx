@@ -1,3 +1,4 @@
+import { memo } from "react";
 import OrderCard from "./OrderCard";
 import type { Order } from "../types/order";
 
@@ -11,7 +12,7 @@ interface OrderListProps {
   ) => void;
 }
 
-export default function OrderList({
+const OrderList = memo(function OrderList({
   orders,
   selectedOrder,
   onSelectOrder,
@@ -25,11 +26,13 @@ export default function OrderList({
             key={order.id}
             order={order}
             selectedOrder={selectedOrder}
-            onClick={() => onSelectOrder(order)}
-            onDeleteClick={(e) => onDeleteOrderClick(e, order)}
+            onSelect={onSelectOrder}
+            onDelete={onDeleteOrderClick}
           />
         ))}
       </div>
     </div>
   );
-}
+});
+
+export default OrderList;

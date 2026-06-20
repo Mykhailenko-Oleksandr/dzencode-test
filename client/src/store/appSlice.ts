@@ -42,6 +42,16 @@ const appSlice = createSlice({
         (order) => order.id !== action.payload,
       );
     },
+    deleteProduct: (state, action: PayloadAction<number>) => {
+      const productIdToDelete = action.payload;
+
+      state.orders = state.orders.map((order) => ({
+        ...order,
+        products: order.products.filter(
+          (product) => product.id !== productIdToDelete,
+        ),
+      }));
+    },
   },
 });
 
@@ -52,6 +62,7 @@ export const {
   setLoading,
   setError,
   deleteOrder,
+  deleteProduct,
 } = appSlice.actions;
 
 export default appSlice.reducer;

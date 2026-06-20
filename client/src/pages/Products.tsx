@@ -1,14 +1,22 @@
 import { useState, useCallback, useMemo } from "react";
-import { useAppSelector } from "../store";
+import { useAppDispatch, useAppSelector } from "../store";
 import PageTitle from "../components/PageTitle";
 import ProductList from "../components/ProductList";
 import type { ExtendedProduct } from "../types/product";
+import Modal from "../components/Modal";
+import { deleteProduct } from "../store/appSlice";
 
 export default function Products() {
+  const dispatch = useAppDispatch();
   const { orders } = useAppSelector((state) => state.app);
 
   const [selectedType, setSelectedType] = useState<string>("Всі");
   const [selectedSpec, setSelectedSpec] = useState<string>("Всі");
+
+  const [productToDelete, setProductToDelete] = useState<{
+    id: number;
+    title: string;
+  } | null>(null);
 
   const allProducts: ExtendedProduct[] = useMemo(() => {
     return orders.flatMap((order) =>
@@ -38,11 +46,16 @@ export default function Products() {
     });
   }, [allProducts, selectedType, selectedSpec]);
 
-  const handleDeleteProduct = useCallback((id: number, title: string) => {
-    if (confirm(`Видалити продукт "${title}"?`)) {
-      console.log("Delete product id:", id);
-    }
+  const handleOpenDeleteModal = useCallback((id: number, title: string) => {
+    setProductToDelete({ id, title });
   }, []);
+
+  const handleConfirmDelete = () => {
+    if (productToDelete) {
+      dispatch(deleteProduct(productToDelete.id));
+      setProductToDelete(null);
+    }
+  };
 
   return (
     <section className="p-4 container-fluid">
@@ -98,7 +111,15 @@ export default function Products() {
 
       <ProductList
         products={filteredProducts}
-        onDeleteProduct={handleDeleteProduct}
+        onDeleteProduct={handleOpenDeleteModal}
+      />
+
+      <Modal
+        isOpen={productToDelete !== null}
+        title="Ви впевнені, що хочете видалити цей продукт?"
+        message={productToDelete ? productToDelete.title : ""}
+        onClose={() => setProductToDelete(null)}
+        onConfirm={handleConfirmDelete}
       />
     </section>
   );

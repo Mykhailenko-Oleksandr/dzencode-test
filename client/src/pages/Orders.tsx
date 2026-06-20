@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useAppDispatch, useAppSelector } from "../store";
 import {
   setOrders,
@@ -12,11 +12,17 @@ import OrderList from "../components/OrderList";
 import type { Order } from "../types/order";
 import type { ApiError } from "../types/apiError";
 import PageTitle from "../components/PageTitle";
+import Modal from "../components/Modal";
 
 export default function Orders() {
   const dispatch = useAppDispatch();
   const { orders, loading, error } = useAppSelector((state) => state.app);
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
+
+  const [orderToDelete, setOrderToDelete] = useState<{
+    id: number;
+    title: string;
+  } | null>(null);
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -35,14 +41,23 @@ export default function Orders() {
     fetchOrders();
   }, [dispatch]);
 
-  const handleClickDeleteOrder = (
-    e: React.MouseEvent<HTMLButtonElement>,
-    order: Order,
-  ) => {
-    e.stopPropagation();
-    if (confirm(`Видалити прихід "${order.title}"?`)) {
-      dispatch(deleteOrder(order.id));
-      if (selectedOrder?.id === order.id) setSelectedOrder(null);
+  const handleClickDeleteOrder = useCallback(
+    (e: React.MouseEvent<HTMLButtonElement>, order: Order) => {
+      e.stopPropagation();
+      setOrderToDelete({ id: order.id, title: order.title });
+    },
+    [],
+  );
+
+  const handleConfirmDelete = () => {
+    if (orderToDelete) {
+      dispatch(deleteOrder(orderToDelete.id));
+
+      if (selectedOrder?.id === orderToDelete.id) {
+        setSelectedOrder(null);
+      }
+
+      setOrderToDelete(null);
     }
   };
 
@@ -80,6 +95,14 @@ export default function Orders() {
           />
         )}
       </div>
+
+      <Modal
+        isOpen={orderToDelete !== null}
+        title="Ви впевнені, що хочете видалити цей прихід?"
+        message={orderToDelete ? orderToDelete.title : ""}
+        onClose={() => setOrderToDelete(null)}
+        onConfirm={handleConfirmDelete}
+      />
     </section>
   );
 }

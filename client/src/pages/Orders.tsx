@@ -13,6 +13,7 @@ import type { Order } from "../types/order";
 import type { ApiError } from "../types/apiError";
 import PageTitle from "../components/PageTitle";
 import Modal from "../components/Modal";
+import { AnimatePresence, motion } from "framer-motion";
 
 export default function Orders() {
   const dispatch = useAppDispatch();
@@ -80,20 +81,37 @@ export default function Orders() {
     <section className="p-4 container-fluid">
       <PageTitle title="Приходи" count={orders.length} marginBottom="24px" />
 
-      <div className="d-flex flex-nowrap gap-2">
-        <OrderList
-          orders={orders}
-          selectedOrder={selectedOrder}
-          onSelectOrder={setSelectedOrder}
-          onDeleteOrderClick={handleClickDeleteOrder}
-        />
-
-        {selectedOrder && (
-          <OrderDetails
-            order={selectedOrder}
-            onClose={() => setSelectedOrder(null)}
+      <div className="d-flex flex-nowrap gap-3" style={{ overflowX: "hidden" }}>
+        <motion.div
+          animate={{ width: selectedOrder ? "60%" : "100%" }}
+          transition={{ type: "tween", ease: "easeInOut", duration: 0.3 }}
+          style={{ flexShrink: 0 }}
+        >
+          <OrderList
+            orders={orders}
+            selectedOrder={selectedOrder}
+            onSelectOrder={setSelectedOrder}
+            onDeleteOrderClick={handleClickDeleteOrder}
           />
-        )}
+        </motion.div>
+
+        <AnimatePresence>
+          {selectedOrder && (
+            <motion.div
+              className="py-1"
+              initial={{ width: 0, opacity: 0 }}
+              animate={{ width: "40%", opacity: 1 }}
+              exit={{ width: 0, opacity: 0 }}
+              transition={{ type: "tween", ease: "easeInOut", duration: 0.3 }}
+              style={{ flexShrink: 0 }}
+            >
+              <OrderDetails
+                order={selectedOrder}
+                onClose={() => setSelectedOrder(null)}
+              />
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
 
       <Modal

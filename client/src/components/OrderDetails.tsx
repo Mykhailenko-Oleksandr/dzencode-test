@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import type { Order } from "../types/order";
 
 interface OrderDetailsProps {
@@ -7,7 +8,13 @@ interface OrderDetailsProps {
 
 export default function OrderDetails({ order, onClose }: OrderDetailsProps) {
   return (
-    <div className="bg-white rounded-3 shadow-sm p-3 border border-light position-relative h-100 w-100 ">
+    <motion.div
+      className="bg-white rounded-3 shadow-sm p-3 border border-light position-relative h-100 w-100"
+      initial={{ x: "100%", opacity: 0 }}
+      animate={{ x: 0, opacity: 1 }}
+      exit={{ x: "100%", opacity: 0 }}
+      transition={{ type: "tween", ease: "easeInOut", duration: 0.3 }}
+    >
       <button
         type="button"
         className="btn-close position-absolute top-0 end-0 m-3 shadow-none"
@@ -59,6 +66,6 @@ export default function OrderDetails({ order, onClose }: OrderDetailsProps) {
           </div>
         ))}
       </div>
-    </div>
+    </motion.div>
   );
 }

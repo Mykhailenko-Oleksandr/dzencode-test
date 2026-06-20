@@ -20,7 +20,7 @@ const OrderList = memo(function OrderList({
 }: OrderListProps) {
   return (
     <div className={"transition-all duration-300 w-100"}>
-      <div className="d-flex flex-column gap-3">
+      <div className="d-flex flex-column gap-3 py-1">
         {orders.map((order) => (
           <OrderCard
             key={order.id}

@@ -2,7 +2,10 @@
 
 Веб-додаток для моніторингу замовлень, товарів та активних користувацьких сесій у реальному часі. Проєкт побудований на базі архітектури SPA з інтеграцією WebSocket та повною контейнеризацією середовища.
 
-https://dzencode-backend-test.onrender.com
+## 🔗 Живе посилання на проєкт
+
+- **Frontend (Vercel):** https://dzencode-test-khaki.vercel.app
+- **Backend (Render):** https://dzencode-backend-test.onrender.com
 
 ## 🚀 Технологічний стек
 

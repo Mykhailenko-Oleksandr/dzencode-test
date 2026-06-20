@@ -81,11 +81,17 @@ export default function Orders() {
     <section className="p-4 container-fluid">
       <PageTitle title="Приходи" count={orders.length} marginBottom="24px" />
 
-      <div className="d-flex flex-nowrap gap-3" style={{ overflowX: "hidden" }}>
-        <motion.div
-          animate={{ width: selectedOrder ? "60%" : "100%" }}
-          transition={{ type: "tween", ease: "easeInOut", duration: 0.3 }}
-          style={{ flexShrink: 0 }}
+      <div
+        className="d-flex flex-nowrap gap-3 position-relative"
+        style={{ overflowX: "hidden" }}
+      >
+        <div
+          style={{
+            width: selectedOrder ? "50%" : "100%",
+            transition: "width 0.3s ease-in-out",
+            flexShrink: 0,
+            minWidth: 0,
+          }}
         >
           <OrderList
             orders={orders}
@@ -93,17 +99,16 @@ export default function Orders() {
             onSelectOrder={setSelectedOrder}
             onDeleteOrderClick={handleClickDeleteOrder}
           />
-        </motion.div>
+        </div>
 
         <AnimatePresence>
           {selectedOrder && (
             <motion.div
-              className="py-1"
               initial={{ width: 0, opacity: 0 }}
-              animate={{ width: "40%", opacity: 1 }}
+              animate={{ width: "50%", opacity: 1 }}
               exit={{ width: 0, opacity: 0 }}
               transition={{ type: "tween", ease: "easeInOut", duration: 0.3 }}
-              style={{ flexShrink: 0 }}
+              style={{ flexShrink: 0, minWidth: 0, overflow: "hidden" }}
             >
               <OrderDetails
                 order={selectedOrder}

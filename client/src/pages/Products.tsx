@@ -8,7 +8,7 @@ import { deleteProduct } from "../store/appSlice";
 
 export default function Products() {
   const dispatch = useAppDispatch();
-  const { orders } = useAppSelector((state) => state.app);
+  const orders = useAppSelector((state) => state.app.orders);
 
   const [selectedType, setSelectedType] = useState<string>("Всі");
   const [selectedSpec, setSelectedSpec] = useState<string>("Всі");

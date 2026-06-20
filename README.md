@@ -2,6 +2,8 @@
 
 Веб-додаток для моніторингу замовлень, товарів та активних користувацьких сесій у реальному часі. Проєкт побудований на базі архітектури SPA з інтеграцією WebSocket та повною контейнеризацією середовища.
 
+https://dzencode-backend-test.onrender.com
+
 ## 🚀 Технологічний стек
 
 - **Frontend:** React 19, TypeScript, Vite 8, Redux Toolkit, Framer Motion, Bootstrap 5.

@@ -1,0 +1,13 @@
+{
+  "name": "dzencode-test-monorepo",
+  "version": "1.0.0",
+  "scripts": {
+    "dev:client": "npm run dev --prefix client",
+    "dev:server": "npm run dev --prefix server",
+    "dev": "concurrently -n frontend,backend -c yellow,cyan \"npm run dev:client\" \"npm run dev:server\""
+  },
+  "author": "Oleksandr Mykhailenko <saniamykhailenko@gmail.com>",
+  "dependencies": {
+    "concurrently": "^10.0.3"
+  }
+}

@@ -1,0 +1,22 @@
+version: "3.8"
+
+services:
+  frontend:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+
+  backend:
+    image: node:22-alpine
+    working_dir: /app
+    volumes:
+      - ./server:/app
+    ports:
+      - "3001:3001"
+    command: sh -c "npm install && npm start"
+    environment:
+      - PORT=3001
